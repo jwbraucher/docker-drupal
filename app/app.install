@@ -1,0 +1,39 @@
+#!/bin/bash -ex
+# vim: set filetype=sh :
+
+# Configure for Drupal
+source /app.configure
+
+# Install Drush
+composer create-project drush/drush /opt/drush --no-dev
+chmod a+x /opt/drush/drush
+ln -s /opt/drush/drush /usr/local/bin/drush
+
+# Setup Drush for root
+mkdir ${HOME}/.drush
+echo "<?php \$options[\"r\"] = ${php_home}" >> ${HOME}/.drush/drushrc.php ;
+
+echo Installing Drupal
+sudo -u "${php_user}" /bin/bash -ex << END_OF_SUDO
+
+# Download Drupal
+yes | drush pm-download \
+--verbose \
+--destination=${php_home} \
+drupal-${version}
+
+# Install Drupal
+yes | drush site-install standard \
+--verbose \
+--site-name=${title} \
+--locale=${locale}
+--account-name=${admin_user} \
+--account-pass=${admin_pass} \
+--account-mail=${admin_email} \
+--db-url="mysql://${db_user}@${db_host}/${db_name}"
+
+END_OF_SUDO
+
+# Run project-specific installation commands
+source /app.install.local
+
