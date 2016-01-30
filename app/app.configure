@@ -12,3 +12,7 @@ done
 /fix-uids "${php_home}" "${php_user}"
 chown -Rh "${php_user}:${php_user}" "${php_home}"
 
+# Tell drush where php_home is
+mkdir -p ${HOME}/.drush
+echo "<?php \$options[\"r\"] = \"${php_home}\";" > ${HOME}/.drush/drushrc.php ;
+

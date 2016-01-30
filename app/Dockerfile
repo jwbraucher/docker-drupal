@@ -1,10 +1,12 @@
-# lamp stack built with puppet
+# Drupal
 
 FROM braucher/php
 MAINTAINER Jeff Braucher <jeff@braucher.net>
 
-# You change /puppet/php.yaml and re-apply puppet like this
-# RUN /puppet-apply
+# Install Drush
+RUN composer create-project drush/drush /opt/drush --no-dev && \
+  chmod a+x /opt/drush/drush && \
+  ln -s /opt/drush/drush /usr/local/bin/drush
 
 COPY ./app* /
 ENTRYPOINT ["/app"]

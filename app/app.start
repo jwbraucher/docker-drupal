@@ -4,5 +4,5 @@
 source /app.configure
 
 # This script starts php5-fpm
-cd ${docroot}
+cd ${php_home}
 /usr/sbin/php5-fpm --nodaemonize --fpm-config /etc/php5/fpm/php-fpm.conf

@@ -1,17 +1,8 @@
-#!/bin/bash -ex
+#!/bin/bash -x
 # vim: set filetype=sh :
 
 # Configure for Drupal
 source /app.configure
-
-# Install Drush
-composer create-project drush/drush /opt/drush --no-dev
-chmod a+x /opt/drush/drush
-ln -s /opt/drush/drush /usr/local/bin/drush
-
-# Setup Drush for root
-mkdir ${HOME}/.drush
-echo "<?php \$options[\"r\"] = ${php_home}" >> ${HOME}/.drush/drushrc.php ;
 
 echo Installing Drupal
 sudo -u "${php_user}" /bin/bash -ex << END_OF_SUDO
@@ -19,21 +10,26 @@ sudo -u "${php_user}" /bin/bash -ex << END_OF_SUDO
 # Download Drupal
 yes | drush pm-download \
 --verbose \
---destination=${php_home} \
+--drupal-project-rename \
+--destination=/tmp \
 drupal-${version}
+rsync -rv --checksum --progress /tmp/drupal/ ${php_home}/
 
 # Install Drupal
 yes | drush site-install standard \
+--root=${php_home} \
 --verbose \
 --site-name=${title} \
---locale=${locale}
+--locale=${locale} \
 --account-name=${admin_user} \
 --account-pass=${admin_pass} \
 --account-mail=${admin_email} \
---db-url="mysql://${db_user}@${db_host}/${db_name}"
+--db-url=mysql://${db_user}:${db_pass}@${db_host}/${db_name}
 
 END_OF_SUDO
 
 # Run project-specific installation commands
 source /app.install.local
 
+# Start app
+source /app.start
