@@ -1,4 +1,13 @@
 #!/bin/bash -ex
 # vim: set filetype=sh :
 
-# This script is for local project installation instructions
+echo Configuring sample Drupal project
+sudo -u "${app_user}" /bin/bash -ex << END_OF_SUDO
+
+# Install and enable the Sunrise theme
+theme=best_responsive
+drush pm-download --yes --verbose \${theme}
+drush pm-enable --yes --verbose \${theme}
+drush vset theme_default \${theme}
+
+END_OF_SUDO
