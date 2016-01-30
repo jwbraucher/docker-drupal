@@ -1,3 +1,5 @@
+# braucher/drupal 1.1.0
+
 # braucher/drupal 1.0.0
   - first version, based off braucher/php and braucher/wordpress
   - installs drush
