@@ -50,7 +50,7 @@ clean-images:
 
 clean-files:
 	@echo "...Cleaning Untracked Files (Git)..."
-	-git clean -xdf
+	-git clean -xdf -e '\!backup-*'
 
 pull:
 	@echo "...Pulling image..."
