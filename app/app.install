@@ -13,7 +13,8 @@ yes | drush pm-download \
 --drupal-project-rename \
 --destination=/tmp \
 drupal-${version}
-rsync -rv --checksum --progress /tmp/drupal/ ${php_home}/
+rsync -r /tmp/drupal/ ${php_home}/
+rm -rf /tmp/drupal/
 
 # Install Drupal
 yes | drush site-install standard \
