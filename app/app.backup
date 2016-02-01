@@ -5,14 +5,17 @@
 
 echo Backing up Drupal
 sudo -u "${php_user}" /bin/bash -x << END_OF_SUDO
-cd "${php_home}"
+cd ${php_home}
 
 # Backup with drush
-mkdir -p `dirname ${backup}`
+backup_dir=$(dirname ${backup})
+mkdir -p \${backup_dir}
 drush archive-dump --destination=${backup}
 
 # Create a latest symlink
-latest=`echo ${backup} | sed 's,[0-9][0-9]*\.tar\.gz,latest.tar.gz,'`
-ln -sf ${backup} ${latest}
+backup_file=$(basename ${backup})
+latest=`echo \${backup_file} | sed 's,[0-9][0-9]*\.tar\.gz,latest.tar.gz,'`
+cd \${backup_dir}
+ln -sf ${backup} \${latest}
 
 END_OF_SUDO
