@@ -4,17 +4,21 @@
 # This script backs up the application to an archive file
 
 echo Backing up Drupal
-sudo -u "${php_user}" /bin/bash -x << END_OF_SUDO
-cd ${php_home}
+sudo -u "${php_user}" /bin/bash << END_OF_SUDO
+
+# Variables
+backup_dir=\$(dirname ${backup})
+backup_file=\$(basename ${backup})
+latest=\$(echo \${backup_file} | sed 's,[0-9][0-9]*\.tar\.gz,latest.tar.gz,')
+
+set -x
 
 # Backup with drush
-backup_dir=\$(dirname ${backup})
 mkdir -p \${backup_dir}
+cd ${php_home}/drupal
 drush archive-dump --destination=${backup}
 
 # Create a latest symlink
-backup_file=\$(basename ${backup})
-latest=\$(echo \${backup_file} | sed 's,[0-9][0-9]*\.tar\.gz,latest.tar.gz,')
 cd \${backup_dir}
 ln -sf \${backup_file} \${latest}
 

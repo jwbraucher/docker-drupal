@@ -10,15 +10,13 @@ sudo -u "${php_user}" /bin/bash -ex << END_OF_SUDO
 # Download Drupal
 yes | drush pm-download \
 --verbose \
+--destination=${php_home} \
 --drupal-project-rename \
---destination=/tmp \
 drupal-${version}
-rsync -r /tmp/drupal/ ${php_home}/
-rm -rf /tmp/drupal/
 
 # Install Drupal
 yes | drush site-install standard \
---root=${php_home} \
+--root=${php_home}/drupal \
 --verbose \
 --site-name=${title} \
 --locale=${locale} \

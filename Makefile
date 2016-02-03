@@ -58,10 +58,18 @@ pull:
 	docker pull braucher/$(app)
 	command=$@ docker-compose pull
 
-# container commands
-.PHONY: start install
-start install:
+# stopped container commands
+.PHONY: start install restore
+start install restore:
 	command=$@ docker-compose up -d $(service)
+
+# running container commands
+.PHONY: backup configure
+backup configure:
+	@ set -x ; \
+command=$(@) ; \
+container=`docker-compose ps -q $${app} 2>/dev/null` ; \
+docker exec -it $${container} /app $${command}
 
 .PHONY: stop
 stop:
@@ -102,14 +110,6 @@ if [ ! -z "$${service}" ]; then \
   theservice=$${service} ; \
 fi ; \
 command=$@ docker-compose run --rm --entrypoint /bin/bash $${theservice} -o vi
-
-# run backup and restore
-.PHONY: backup restore configure
-backup restore configure:
-	@ set -x ; \
-command=$(@) ; \
-container=`docker-compose ps -q $${app} 2>/dev/null` ; \
-docker exec -it $${container} /app $${command}
 
 # manage docker machine
 .PHONY: machine

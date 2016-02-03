@@ -1,14 +1,16 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 # vim: set filetype=sh :
 
 # This script restores the application from a backup archive file
 
+# Preconfigure to set permissions on volume
+source /app.configure
+
 echo Restoring Drupal
 sudo -u "${php_user}" /bin/bash -x << END_OF_SUDO
-cd "${php_home}"
 
 drush archive-restore \
-  --destination=${php_home} \
+  --destination=${php_home}/drupal \
   --db-url=mysql://${db_user}:${db_pass}@${db_host}/${db_name} \
   --overwrite \
   ${restore}
