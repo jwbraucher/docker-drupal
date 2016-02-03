@@ -49,8 +49,9 @@ clean-images:
 	-@for i in ${images}; do docker rmi $${i}; done
 
 clean-files:
-	@echo "...Cleaning Untracked Files (Git)..."
-	-git clean -df
+	@echo "...Cleaning Untracked Files (Git)..." ; set -x ; \
+  git ls-files --directory --others -i --exclude-standard \
+  | grep -v volumes/export | xargs -t rm -rf
 
 pull:
 	@echo "...Pulling image..."
