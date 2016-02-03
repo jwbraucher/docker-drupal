@@ -16,3 +16,5 @@ drush archive-restore \
   ${restore}
 
 END_OF_SUDO
+
+source /app.start
