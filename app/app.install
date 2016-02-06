@@ -8,16 +8,18 @@ echo Installing Drupal
 sudo -u "${php_user}" /bin/bash -ex << END_OF_SUDO
 
 # Download Drupal
-yes | drush pm-download \
+drush pm-download \
+--yes \
 --verbose \
 --destination=${php_home} \
 --drupal-project-rename \
 drupal-${version}
 
 # Install Drupal
-yes | drush site-install standard \
---root=${php_home}/drupal \
+drush site-install standard \
+--yes \
 --verbose \
+--root=${php_home}/drupal \
 --site-name=${title} \
 --locale=${locale} \
 --account-name=${admin_user} \

@@ -14,5 +14,6 @@ chown "${php_user}:${php_user}" "${php_home}"
 
 # Tell drush where php_home is
 mkdir -p ${HOME}/.drush
+chmod a+rx ${HOME} ${HOME}/.drush
 echo "<?php \$options[\"r\"] = \"${php_home}/drupal\";" > ${HOME}/.drush/drushrc.php ;
 
