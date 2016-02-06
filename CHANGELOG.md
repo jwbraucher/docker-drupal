@@ -1,4 +1,4 @@
-# braucher/drupal unreleased
+# braucher/drupal 1.2.1
 
 ## Bugfixes
   - don't start after install or restore
