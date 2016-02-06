@@ -31,6 +31,3 @@ END_OF_SUDO
 
 # Run project-specific installation commands
 source /app.install.local
-
-# Start app
-source /app.start
