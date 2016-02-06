@@ -1,5 +1,12 @@
-# braucher/drupal unreleased
+# braucher/drupal 1.2.0
+
+## Features
   - made Drupal start after restore
+
+## Bugfixes
+  - make clean preserves export volume
+  - sudo -u www-data can now read /root/.drush
+  - drush install --yes instead of yes | drush install
 
 # braucher/drupal 1.1.0
   - added ‘make backup’ and ‘make restore’
