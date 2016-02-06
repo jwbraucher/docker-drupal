@@ -139,3 +139,17 @@ net:
 	    sed 's,[^0-9 ],,g' ; \
 	  done ) )
 	@for port in ${PORTS} ; do printf "${ip}:$${port}\n"; done
+
+# Show volumes on running containers
+.PHONY: ls-volumes
+ls-volumes:
+	@ \
+containers=`docker ps -q` ; \
+for container in $${containers}; do \
+printf 'Volumes on ' ; \
+docker ps --filter=id=$${container} --format='{{ .Image }}' ; \
+printf ':' ; \
+docker inspect \
+    --format '{{ .Config.Volumes }}' $${container} ; \
+printf '\n' ; \
+done
