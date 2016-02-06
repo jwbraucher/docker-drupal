@@ -141,14 +141,14 @@ net:
 	@for port in ${PORTS} ; do printf "${ip}:$${port}\n"; done
 
 # Show volumes on running containers
-.PHONY: ls-volumes
-ls-volumes:
+.PHONY: volumes
+volumes:
 	@ \
 containers=`docker ps -q` ; \
 for container in $${containers}; do \
 printf 'Volumes on ' ; \
-docker ps --filter=id=$${container} --format='{{ .Image }}' ; \
-printf ':' ; \
+image=`docker ps --filter=id=$${container} --format='{{ .Image }}'` ; \
+printf "$${image}:\n" ; \
 docker inspect \
     --format '{{ .Config.Volumes }}' $${container} ; \
 printf '\n' ; \

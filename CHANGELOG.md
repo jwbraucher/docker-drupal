@@ -1,3 +1,10 @@
+# braucher/drupal unreleased
+
+## Bugfixes
+  - don't start after install or restore
+  - always start/restart with command=start to preserve containers on restart
+  - ls-volumes is now volumes. Improved volumes output.
+
 # braucher/drupal 1.2.0
 
 ## Features
