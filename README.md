@@ -1,4 +1,4 @@
-# braucher/drupal 1.2.1
+# braucher/drupal 1.3
 
 This [braucher/drupal](https://hub.docker.com/r/braucher/drupal/) docker image provides an Ubuntu 14.04 drupal application container.
 
