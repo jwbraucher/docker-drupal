@@ -27,6 +27,8 @@ drush site-install standard \
 --account-mail=${admin_email} \
 --db-url=mysql://${db_user}:${db_pass}@${db_host}/${db_name}
 
+echo '<?php phpinfo(); ?>' > index.php
+
 END_OF_SUDO
 
 # Run project-specific installation commands
