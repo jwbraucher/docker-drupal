@@ -1,3 +1,11 @@
+# braucher/drupal 2.0.0
+
+## Features
+  - Merged in docker/app-2.0.0
+
+## Bugfixes
+  - fixed app.restore
+
 # braucher/drupal 1.3.1
 
 ## Bugfixes
