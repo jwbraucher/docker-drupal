@@ -3,11 +3,11 @@
 
 # This script restores the application from a backup archive file
 
-echo Restoring...
-sudo -u "${app_user}" /bin/bash -x << END_OF_SUDO
-
 # Preconfigure to set permissions on volume
 source /app.configure
+
+echo Restoring...
+sudo -u "${app_user}" /bin/bash -x << END_OF_SUDO
 
 # Erase all files and directories in the app home
 find ${app_home} -type f -exec rm -f {} \;
@@ -15,9 +15,9 @@ find ${app_home} -mindepth 1 -type d -empty -delete
 
 # Purge all tables from the database
 mysql="mysql -u ${db_user} -p${db_pass} -h ${db_host} ${db_name}"
-tables=`\${mysql} < 'show tables' | awk '{print $1}'`:
+tables=`echo 'show tables' | \${mysql} | awk '{print $1}' | tail -n +2`;
 for table in \${tables}; do
-    \${mysql} < "drop table \${table};"
+    echo "drop table \${table};" | \${mysql}
 done
 
 # Restore with drush
