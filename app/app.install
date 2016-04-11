@@ -5,13 +5,13 @@
 source /app.configure
 
 echo Installing Drupal
-sudo -u "${php_user}" /bin/bash -ex << END_OF_SUDO
+sudo -u "${app_user}" /bin/bash -ex << END_OF_SUDO
 
 # Download Drupal
 drush pm-download \
 --yes \
 --verbose \
---destination=${php_home} \
+--destination=${app_home} \
 --drupal-project-rename \
 drupal-${version}
 
@@ -19,7 +19,7 @@ drupal-${version}
 drush site-install standard \
 --yes \
 --verbose \
---root=${php_home}/drupal \
+--root=${app_home}/drupal \
 --site-name=${title} \
 --locale=${locale} \
 --account-name=${admin_user} \

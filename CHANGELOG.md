@@ -1,3 +1,9 @@
+# braucher/drupal 1.3.1
+
+## Bugfixes
+  - fixed php_home and app_home to be compatible with new php image
+  - fixed shell vars in app.restore
+
 # braucher/drupal 1.3
 
 ## Features

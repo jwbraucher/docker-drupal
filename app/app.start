@@ -4,5 +4,5 @@
 source /app.configure
 
 # This script starts php5-fpm
-cd ${php_home}/drupal
+cd ${app_home}/drupal
 /usr/sbin/php5-fpm --nodaemonize --fpm-config /etc/php5/fpm/php-fpm.conf

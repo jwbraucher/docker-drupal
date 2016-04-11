@@ -15,9 +15,9 @@ find ${app_home} -mindepth 1 -type d -empty -delete
 
 # Purge all tables from the database
 mysql="mysql -u ${db_user} -p${db_pass} -h ${db_host} ${db_name}"
-tables=`${mysql} < 'show tables' | awk '{print $1}'`:
-for table in ${tables}; do
-    ${mysql} < "drop table ${table};"
+tables=`\${mysql} < 'show tables' | awk '{print $1}'`:
+for table in \${tables}; do
+    \${mysql} < "drop table \${table};"
 done
 
 # Restore with drush

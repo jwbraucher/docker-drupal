@@ -9,11 +9,11 @@ while ! nc -w 1 -z "${db_host}" 3306; do
 done
 
 # set uid on run-time user and directory
-/fix-uids "${php_home}" "${php_user}"
-chown "${php_user}:${php_user}" "${php_home}"
+/fix-uids "${app_home}" "${app_user}"
+chown "${app_user}:${app_user}" "${app_home}"
 
-# Tell drush where php_home is
+# Tell drush where Drupal is
 mkdir -p ${HOME}/.drush
 chmod a+rx ${HOME} ${HOME}/.drush
-echo "<?php \$options[\"r\"] = \"${php_home}/drupal\";" > ${HOME}/.drush/drushrc.php ;
+echo "<?php \$options[\"r\"] = \"${app_home}/drupal\";" > ${HOME}/.drush/drushrc.php ;
 
